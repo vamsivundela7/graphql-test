@@ -100,6 +100,56 @@ const resolvers = {
         user,
       };
     },
+    encodeData(_, { input }) {
+      // Example encoding: Base64
+      const encoded = Buffer.from(input).toString("base64");
+      return { encoded };
+    },
+    decodeData(_, { input }) {
+      // Example decoding: Base64
+      const decoded = Buffer.from(input, "base64").toString("utf8");
+      return { decoded };
+    },
+
+    processEncryptedData(_, { input }) {
+      try {
+        // Step 1: Decrypt the input (Base64 decode)
+        const decrypted = Buffer.from(input, "base64").toString("utf8");
+        console.log(decrypted)
+      
+        // Extract data and timestamp
+        // const { data } = parsedData;
+
+        // (Optional) Validate timestamp (e.g., check if it's recent)
+
+
+        // Step 3: Process the data
+        // For demonstration, let's assume we just echo back the data with a new timestamp
+        const responseData = {
+          receivedData: decrypted,
+          processedAt: new Date().toString(),
+        };
+        console.log(responseData)
+        // Step 4: Create response object with timestamp
+        const responseObject = {
+          data: responseData,
+          timestamp: Date.now(),
+        };
+        console.log(responseObject)
+
+        // Step 5: Convert response object to JSON string
+        const responseJson = JSON.stringify(responseObject);
+
+        // Step 6: Encrypt the response (Base64 encode)
+        const encryptedResponse = Buffer.from(responseJson).toString("base64");
+
+        // Step 7: Return the encrypted response
+        return { encoded: encryptedResponse };
+      } catch (error) {
+        console.error("Error processing encrypted data:", error);
+        throw new Error("Invalid encrypted input.");
+      }
+    },
   },
 };
 

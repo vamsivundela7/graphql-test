@@ -6,7 +6,6 @@ const games = [
     { id: "5", title: "Fortnite", platform: ["PC", "PlayStation 4", "Xbox One", "Nintendo Switch"] },
 ];
 
-
 const authors = [
     { id: "1", name: "John Doe", email: "john@example.com", password: "johndoe", verified: true },
     { id: "2", name: "Jane Smith", email: "jane@example.com", password: "janesmith", verified: false },
